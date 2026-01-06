@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dra. Nome da Sua Namorada | Odontologia</title>
+    
+    <style>
+        :root {
+            --primary-color: #0077b6; /* Azul Clínico */
+            --secondary-color: #90e0ef;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; color: var(--primary-color); }
+        header p { margin: 5px 0 0; color: #666; }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 20px;
+        }
+
+        /* Estilo da Seção de Agenda */
+        .section-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        h2 { color: var(--primary-color); border-bottom: 2px solid var(--secondary-color); padding-bottom: 10px; }
+
+        /* Estilo da Calculadora */
+        .calc-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .calc-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .total-box {
+            margin-top: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: right;
+            font-size: 1.3rem;
+        }
+
+        /* Botão WhatsApp Flutuante */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover { transform: scale(1.05); }
+
+        .placeholder-agenda {
+            background: #e9ecef;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Dra. Nome da Namorada</h1>
+        <p>Cirurgiã-Dentista | CRO: 00000</p>
+    </header>
+
+    <div class="container">
+        
+        <section class="section-card">
+            <h2>📅 Agendamento Online</h2>
+            <p>Escolha o melhor horário para sua consulta:</p>
+            <div class="placeholder-agenda">
+                O componente de agenda será integrado aqui.
+            </div>
+        </section>
+
+        <section class="section-card">
+            <h2>🧮 Calculadora de Procedimentos</h2>
+            <p>Selecione os procedimentos realizados para gerar o valor:</p>
+            
+            <div id="lista-procedimentos">
+                <div class="calc-item">
+                    <label>Limpeza (Profilaxia)</label>
+                    <div>R$ 150,00 <input type="checkbox" value="150" class="proc-check"></div>
+                </div>
+                <div class="calc-item">
+                    <label>Restauração Simples</label>
+                    <div>R$ 180,00 <input type="checkbox" value="180" class="proc-check"></div>
+                </div>
+                <div class="calc-item">
+                    <label>Clareamento Caseiro</label>
+                    <div>R$ 600,00 <input type="checkbox" value="600" class="proc-check"></div>
+                </div>
+                <div class="calc-item">
+                    <label>Extração Simples</label>
+                    <div>R$ 250,00 <input type="checkbox" value="250" class="proc-check"></div>
+                </div>
+            </div>
+
+            <div class="total-box">
+                Total do Orçamento: <strong>R$ <span id="valor-total">0,00</span></strong>
+            </div>
+        </section>
+
+    </div>
+
+    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de agendar uma avaliação." 
+       class="whatsapp-btn" target="_blank">
+        💬 Falar no WhatsApp
+    </a>
+
+    <script>
+        const checkboxes = document.querySelectorAll('.proc-check');
+        const totalDisplay = document.getElementById('valor-total');
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                let total = 0;
+                
+                checkboxes.forEach(c => {
+                    if (c.checked) {
+                        total += parseFloat(c.value);
+                    }
+                });
+
+                // Formata o número para o padrão de moeda brasileiro
+                totalDisplay.innerText = total.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
